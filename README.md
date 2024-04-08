@@ -1,4 +1,4 @@
 # gymnote
 
 DIAGRAM ERD
-![image](https://github.com/Buricz9/gymnote/assets/119446577/bd0bfa7d-06d1-4b66-8de5-93d811f4847a)
+![image](https://github.com/Buricz9/gymnote/assets/119446577/9de493d8-9202-4a35-b58e-affe8a021f10)
