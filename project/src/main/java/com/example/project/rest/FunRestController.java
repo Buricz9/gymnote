@@ -34,12 +34,4 @@ public class FunRestController {
     public String getProgress(){
         return "progress";
     }
-
-    @GetMapping("/")
-    public String sayHello(){
-        return "Tu się będziesz logował";
-    }
-
-
-
 }
