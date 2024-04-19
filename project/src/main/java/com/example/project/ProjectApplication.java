@@ -12,11 +12,11 @@ public class ProjectApplication {
 		SpringApplication.run(ProjectApplication.class, args);
 	}
 
-	// @Bean
-	// public CommandLineRunner commandLineRunner(String[] args){
-	// 	return runner -> {
-	// 		System.out.println("Hello World");
-	// 	};
-	// }
+	 @Bean
+	 public CommandLineRunner commandLineRunner(String[] args){
+	 	return runner -> {
+	 		System.out.println("Hello World");
+	 	};
+	 }
 
 }
