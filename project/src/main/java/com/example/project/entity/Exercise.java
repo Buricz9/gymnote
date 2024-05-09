@@ -3,7 +3,7 @@ package com.example.project.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "exercises_list")
+@Table(name = "exercises_library")
 public class Exercise {
 
     @Id
@@ -29,5 +29,47 @@ public class Exercise {
         this.exerciseName = exerciseName;
         this.description = description;
         this.bodyPart = bodyPart;
+    }
+
+    public Long getExerciseId() {
+        return exerciseId;
+    }
+
+    public void setExerciseId(Long exerciseId) {
+        this.exerciseId = exerciseId;
+    }
+
+    public String getExerciseName() {
+        return exerciseName;
+    }
+
+    public void setExerciseName(String exerciseName) {
+        this.exerciseName = exerciseName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getBodyPart() {
+        return bodyPart;
+    }
+
+    public void setBodyPart(String bodyPart) {
+        this.bodyPart = bodyPart;
+    }
+
+    @Override
+    public String toString() {
+        return "Exercise{" +
+                "exerciseId=" + exerciseId +
+                ", exerciseName='" + exerciseName + '\'' +
+                ", description='" + description + '\'' +
+                ", bodyPart='" + bodyPart + '\'' +
+                '}';
     }
 }

@@ -12,10 +12,6 @@ public class SessionExercise {
     private Long sessionExerciseId;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
-    private User user;
-
-    @ManyToOne
     @JoinColumn(name = "session_id", referencedColumnName = "session_id", nullable = false)
     private Session session;
 
@@ -41,5 +37,106 @@ public class SessionExercise {
     @Column(name = "exercise_notes")
     private String exerciseNotes;
 
-    // Getters and setters
+    public SessionExercise(){
+
+    }
+
+    public SessionExercise(Long sessionExerciseId, Session session, PlanDetail planDetail, int series, double weight, int repetitionsCompleted, String tempoUsed, String restTimeUsed, String exerciseNotes) {
+        this.sessionExerciseId = sessionExerciseId;
+        this.session = session;
+        this.planDetail = planDetail;
+        this.series = series;
+        this.weight = weight;
+        this.repetitionsCompleted = repetitionsCompleted;
+        this.tempoUsed = tempoUsed;
+        this.restTimeUsed = restTimeUsed;
+        this.exerciseNotes = exerciseNotes;
+    }
+
+    public Long getSessionExerciseId() {
+        return sessionExerciseId;
+    }
+
+    public void setSessionExerciseId(Long sessionExerciseId) {
+        this.sessionExerciseId = sessionExerciseId;
+    }
+
+    public Session getSession() {
+        return session;
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
+    }
+
+    public PlanDetail getPlanDetail() {
+        return planDetail;
+    }
+
+    public void setPlanDetail(PlanDetail planDetail) {
+        this.planDetail = planDetail;
+    }
+
+    public int getSeries() {
+        return series;
+    }
+
+    public void setSeries(int series) {
+        this.series = series;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public int getRepetitionsCompleted() {
+        return repetitionsCompleted;
+    }
+
+    public void setRepetitionsCompleted(int repetitionsCompleted) {
+        this.repetitionsCompleted = repetitionsCompleted;
+    }
+
+    public String getTempoUsed() {
+        return tempoUsed;
+    }
+
+    public void setTempoUsed(String tempoUsed) {
+        this.tempoUsed = tempoUsed;
+    }
+
+    public String getRestTimeUsed() {
+        return restTimeUsed;
+    }
+
+    public void setRestTimeUsed(String restTimeUsed) {
+        this.restTimeUsed = restTimeUsed;
+    }
+
+    public String getExerciseNotes() {
+        return exerciseNotes;
+    }
+
+    public void setExerciseNotes(String exerciseNotes) {
+        this.exerciseNotes = exerciseNotes;
+    }
+
+    @Override
+    public String toString() {
+        return "SessionExercise{" +
+                "sessionExerciseId=" + sessionExerciseId +
+                ", session=" + session +
+                ", planDetail=" + planDetail +
+                ", series=" + series +
+                ", weight=" + weight +
+                ", repetitionsCompleted=" + repetitionsCompleted +
+                ", tempoUsed='" + tempoUsed + '\'' +
+                ", restTimeUsed='" + restTimeUsed + '\'' +
+                ", exerciseNotes='" + exerciseNotes + '\'' +
+                '}';
+    }
 }
