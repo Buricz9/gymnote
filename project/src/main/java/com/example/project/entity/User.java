@@ -17,16 +17,16 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "username", nullable = false)
+    @Column(name = "user_name", nullable = false)
     private String username;
 
     @Column(name = "user_type", nullable = false)
-    private int userType;
+    private String userType;
 
     public User(){
     }
 
-    public User(String email, String password, String username,int userType) {
+    public User(String email, String password, String username,String userType) {
         this.email = email;
         this.password = password;
         this.username = username;
@@ -61,11 +61,11 @@ public class User {
         this.username = username;
     }
 
-    public int getUserType() {
+    public String getUserType() {
         return userType;
     }
 
-    public void setUserType(int userType) {
+    public void setUserType(String userType) {
         this.userType = userType;
     }
 
