@@ -34,7 +34,7 @@ public class AuthenticationService {
                 .userName(request.getUserName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(request.getRole())
+                .userType(request.getUserType())
                 .build();
         userRepository.save(user);
 
