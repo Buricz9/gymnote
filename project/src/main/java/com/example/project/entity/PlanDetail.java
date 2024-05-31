@@ -15,9 +15,9 @@ public class PlanDetail {
     @JoinColumn(name = "plan_id", referencedColumnName = "plan_id", nullable = false)
     private WorkoutPlan workoutPlan;
 
-    @ManyToOne
-    @JoinColumn(name = "exercise_id", referencedColumnName = "exercise_id", nullable = false)
-    private Exercise exercise;
+    // @ManyToOne
+    @Column(name = "exercise_name", nullable = false)
+    private String exercise;
 
     @Column(name = "sets", nullable = false)
     private int sets;
@@ -31,11 +31,12 @@ public class PlanDetail {
     @Column(name = "rest_time")
     private String restTime;
 
-    public PlanDetail(){
+    public PlanDetail() {
 
     }
 
-    public PlanDetail(Long detailId, WorkoutPlan workoutPlan, Exercise exercise, int sets, int repetitions, String tempo, String restTime) {
+    public PlanDetail(Long detailId, WorkoutPlan workoutPlan, String exercise, int sets, int repetitions,
+            String tempo, String restTime) {
         this.detailId = detailId;
         this.workoutPlan = workoutPlan;
         this.exercise = exercise;
@@ -61,11 +62,11 @@ public class PlanDetail {
         this.workoutPlan = workoutPlan;
     }
 
-    public Exercise getExercise() {
+    public String getExercise() {
         return exercise;
     }
 
-    public void setExercise(Exercise exercise) {
+    public void setExercise(String exercise) {
         this.exercise = exercise;
     }
 
