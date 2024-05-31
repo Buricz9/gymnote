@@ -12,13 +12,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User implements UserDetails {
 
     @Id
@@ -32,19 +31,18 @@ public class User implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name="first_name")
-    private String firstName;
+    // @Column(name="first_name")
+    // private String firstName;
 
-    @Column(name="last_name")
-    private String lastName;
+    // @Column(name="last_name")
+    // private String lastName;
 
-    // @Column(name = "user_type", nullable = false)
-    // private String userType;
+    @Column(name = "user_name", nullable = false)
+    private String userName;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "user_type", nullable = false)
     private Role role;
-
 
     @Override
     public String toString() {
@@ -52,8 +50,7 @@ public class User implements UserDetails {
                 "userId=" + userId +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", firstname='" + firstName + '\'' +
-                ", lastname='" + lastName + '\'' +
+                ", userName='" + userName + '\'' +
                 ", userType=" + role.name() +
                 '}';
     }
@@ -93,9 +90,9 @@ public class User implements UserDetails {
         return true;
     }
 
-//    public String getEmail() {
-//        return email;
-//    }
+    // public String getEmail() {
+    // return email;
+    // }
 
     public void setEmail(String email) {
         this.email = email;
@@ -105,25 +102,16 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-
-    public String getUserName() {
+    public String getUserEmail() {
         return email;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getLastName() {
-        return lastName;
+    public String getUserName() {
+        return userName;
     }
 
 }

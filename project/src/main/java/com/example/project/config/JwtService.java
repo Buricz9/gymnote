@@ -1,29 +1,32 @@
 package com.example.project.config;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
+
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
-
-import io.jsonwebtoken.*;
-import io.jsonwebtoken.io.*;
-import io.jsonwebtoken.security.Keys;
-
 @Service
 public class JwtService {
-    @Value("${application.security.jwt.secret-key}")
+    @Value("${jwt.secret}")
     private String SECRET_KEY;
-    @Value("${application.security.jwt.expiration}")
-    private long jwtExpiration;
-    @Value("${application.security.jwt.refresh-token.expiration}")
+
+    @Value("${jwt.rereshExpiration}")
     private long refreshExpiration;
 
-    public String extractUsername(String token) {
+    @Value("${jwt.expiration}")
+    private long jwtExpiration;
+
+    public String extractEmail(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
@@ -42,6 +45,11 @@ public class JwtService {
         return buildToken(extraClaims, userDetails, jwtExpiration);
     }
 
+    public String generateRefreshToken(
+            UserDetails userDetails) {
+        return buildToken(new HashMap<>(), userDetails, refreshExpiration);
+    }
+
     private String buildToken(
             Map<String, Object> extraClaims,
             UserDetails userDetails,
@@ -57,28 +65,29 @@ public class JwtService {
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
+        final String username = extractEmail(token);
         return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
-      }
-    
-      private boolean isTokenExpired(String token) {
+    }
+
+    private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
-      }
-    
-      private Date extractExpiration(String token) {
+    }
+
+    private Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
-      }
+    }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parserBuilder()
+        return Jwts
+                .parserBuilder()
                 .setSigningKey(getSignInKey())
                 .build()
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody();
     }
 
     private Key getSignInKey() {
-        byte[] keyBase = Decoders.BASE64.decode(SECRET_KEY);
-        return Keys.hmacShaKeyFor(keyBase);
+        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 }
