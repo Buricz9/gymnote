@@ -6,6 +6,7 @@ import CreatePlanPage from './components/CreatePlanPage';
 import SelectPlanPage from './components/SelectPlanPage';
 import RegisterPage from './components/RegisterPage';
 import EditPlanPage from './components/EditPlanPage';
+import AddExercisePage from './components/AddExercisePage';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path='/select-plan' element={<SelectPlanPage />} />
         <Route path='/registration' element={<RegisterPage />} />
         <Route path='/edycja' element={<EditPlanPage />} />
+        <Route path='/dodaj-cwiczenie' element={<AddExercisePage />} />
       </Routes>
     </Router>
   );

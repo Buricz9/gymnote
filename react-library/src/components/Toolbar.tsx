@@ -15,6 +15,9 @@ const Toolbar: React.FC = () => {
             <Link to="/select-plan" className="toolbar-link">
                 Wybierz plan
             </Link>
+            <Link to="/dodaj-cwiczenie" className="toolbar-link">
+                Dodaj ćwiczenie
+            </Link>
             {/* <Link to="/progress" className="toolbar-link">
                 Postępy
             </Link> */}
