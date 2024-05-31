@@ -1,0 +1,22 @@
+.toolbar {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+  /* background-color: lightgray; */
+}
+
+.toolbar .toolbar-link {
+  margin: 0 20px;
+  margin-bottom: 2.5%;
+  padding: 10px 20px;
+  background-color: grey;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  text-align: center;
+}
+
+.toolbar .toolbar-link:hover {
+  background-color: rgb(136, 118, 118);
+}

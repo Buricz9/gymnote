@@ -1,0 +1,33 @@
+/* EditPlanPage.css */
+.edit-plan-page {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.plans-list {
+    margin-top: 20px;
+}
+
+.plan-item {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.plan-item h3 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.plan-item p {
+    margin: 5px 0;
+}
+
+.plan-item ul {
+    padding-left: 20px;
+}
+
+.plan-item li {
+    margin-bottom: 10px;
+}

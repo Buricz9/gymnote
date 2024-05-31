@@ -1,0 +1,142 @@
+[
+    {
+        "name": "Jan Kowalski",
+        "plan": "Plan A",
+        "startDate": "2024-06-01T08:00:00",
+        "endDate": "2024-06-01T09:00:00",
+        "exercises": [
+            {
+                "name": "Przysiady",
+                "repetitions": 10,
+                "sets": 3,
+                "weight": 50,
+                "rir": 0,
+                "tempo": "",
+                "notes": ""
+            },
+            {
+                "name": "Martwy ciąg",
+                "repetitions": 8,
+                "sets": 4,
+                "weight": 80,
+                "rir": 0,
+                "tempo": "",
+                "notes": ""
+            },
+            {
+                "name": "Wyciskanie sztangi",
+                "repetitions": 12,
+                "sets": 3,
+                "weight": 40,
+                "rir": 0,
+                "tempo": "",
+                "notes": ""
+            }
+        ]
+    },
+    {
+        "name": "Anna Nowak",
+        "plan": "Plan B",
+        "startDate": "2024-06-01T10:00:00",
+        "endDate": "2024-06-01T11:00:00",
+        "exercises": [
+            {
+                "name": "Podciąganie",
+                "repetitions": 8,
+                "sets": 3,
+                "weight": 0,
+                "rir": 0,
+                "tempo": "",
+                "notes": ""
+            },
+            {
+                "name": "Pompki",
+                "repetitions": 15,
+                "sets": 3,
+                "weight": 0,
+                "rir": 0,
+                "tempo": "",
+                "notes": ""
+            },
+            {
+                "name": "Brzuszki",
+                "repetitions": 20,
+                "sets": 3,
+                "weight": 0,
+                "rir": 0,
+                "tempo": "",
+                "notes": ""
+            }
+        ]
+    },
+    {
+        "name": "Piotr Zieliński",
+        "plan": "Plan C",
+        "startDate": "2024-06-01T12:00:00",
+        "endDate": "2024-06-01T13:00:00",
+        "exercises": [
+            {
+                "name": "Bieganie",
+                "repetitions": 0,
+                "sets": 0,
+                "weight": 0,
+                "rir": 0,
+                "tempo": "",
+                "notes": ""
+            },
+            {
+                "name": "Skakanka",
+                "repetitions": 0,
+                "sets": 0,
+                "weight": 0,
+                "rir": 0,
+                "tempo": "",
+                "notes": ""
+            },
+            {
+                "name": "Rower stacjonarny",
+                "repetitions": 0,
+                "sets": 0,
+                "weight": 0,
+                "rir": 0,
+                "tempo": "",
+                "notes": ""
+            }
+        ]
+    },
+    {
+        "name": "Anna Nowak",
+        "plan": "Plan A",
+        "startDate": "2024-06-01T14:00:00",
+        "endDate": "2024-06-01T15:00:00",
+        "exercises": [
+            {
+                "name": "Podciąganie",
+                "repetitions": 8,
+                "sets": 3,
+                "weight": 0,
+                "rir": 0,
+                "tempo": "",
+                "notes": ""
+            },
+            {
+                "name": "Pompki",
+                "repetitions": 15,
+                "sets": 3,
+                "weight": 0,
+                "rir": 0,
+                "tempo": "",
+                "notes": ""
+            },
+            {
+                "name": "Brzuszki",
+                "repetitions": 20,
+                "sets": 3,
+                "weight": 0,
+                "rir": 0,
+                "tempo": "",
+                "notes": ""
+            }
+        ]
+    }
+]
