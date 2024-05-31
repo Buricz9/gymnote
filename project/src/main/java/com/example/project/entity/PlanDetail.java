@@ -9,7 +9,7 @@ public class PlanDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "detail_id")
-    private Long detailId;
+    private Integer detailId;
 
     @ManyToOne
     @JoinColumn(name = "plan_id", referencedColumnName = "plan_id", nullable = false)
@@ -17,7 +17,7 @@ public class PlanDetail {
 
     // @ManyToOne
     @Column(name = "exercise_name", nullable = false)
-    private String exercise;
+    private String exerciseName;
 
     @Column(name = "sets", nullable = false)
     private int sets;
@@ -35,22 +35,22 @@ public class PlanDetail {
 
     }
 
-    public PlanDetail(Long detailId, WorkoutPlan workoutPlan, String exercise, int sets, int repetitions,
+    public PlanDetail(Integer detailId, WorkoutPlan workoutPlan, String exerciseName, int sets, int repetitions,
             String tempo, String restTime) {
         this.detailId = detailId;
         this.workoutPlan = workoutPlan;
-        this.exercise = exercise;
+        this.exerciseName = exerciseName;
         this.sets = sets;
         this.repetitions = repetitions;
         this.tempo = tempo;
         this.restTime = restTime;
     }
 
-    public Long getDetailId() {
+    public Integer getDetailId() {
         return detailId;
     }
 
-    public void setDetailId(Long detailId) {
+    public void setDetailId(Integer detailId) {
         this.detailId = detailId;
     }
 
@@ -62,12 +62,12 @@ public class PlanDetail {
         this.workoutPlan = workoutPlan;
     }
 
-    public String getExercise() {
-        return exercise;
+    public String getExerciseName() {
+        return exerciseName;
     }
 
-    public void setExercise(String exercise) {
-        this.exercise = exercise;
+    public void setExerciseName(String exercise) {
+        this.exerciseName = exercise;
     }
 
     public int getSets() {
@@ -107,7 +107,7 @@ public class PlanDetail {
         return "PlanDetail{" +
                 "detailId=" + detailId +
                 ", workoutPlan=" + workoutPlan +
-                ", exercise=" + exercise +
+                ", exercise=" + exerciseName +
                 ", sets=" + sets +
                 ", repetitions=" + repetitions +
                 ", tempo='" + tempo + '\'' +

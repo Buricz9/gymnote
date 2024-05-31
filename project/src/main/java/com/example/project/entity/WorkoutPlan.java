@@ -10,7 +10,7 @@ public class WorkoutPlan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "plan_id")
-    private Long planId;
+    private Integer planId;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
@@ -19,20 +19,21 @@ public class WorkoutPlan {
     @Column(name = "plan_name", nullable = false)
     private String planName;
 
-    public WorkoutPlan(){
+    public WorkoutPlan() {
 
     }
-    public WorkoutPlan(Long planId, User user, String planName) {
+
+    public WorkoutPlan(Integer planId, User user, String planName) {
         this.planId = planId;
         this.user = user;
         this.planName = planName;
     }
 
-    public Long getPlanId() {
+    public Integer getPlanId() {
         return planId;
     }
 
-    public void setPlanId(Long planId) {
+    public void setPlanId(Integer planId) {
         this.planId = planId;
     }
 
