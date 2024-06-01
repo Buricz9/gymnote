@@ -34,3 +34,101 @@
 .plan-details p span {
     font-weight: bold;
 }
+
+.plan-details-container {
+    margin: 20px;
+}
+
+.date-picker-container {
+    margin-bottom: 20px;
+}
+
+.plan-details {
+    list-style: none;
+    padding: 0;
+}
+
+.plan-details li {
+    margin-bottom: 20px;
+}
+
+.exercise-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.exercise-form p {
+    margin: 0;
+    font-weight: bold;
+}
+
+.exercise-form input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px 15px;
+    margin-top: 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.plan-details-container {
+    margin: 20px;
+}
+
+.date-picker-container {
+    margin-bottom: 20px;
+}
+
+.plan-details {
+    list-style: none;
+    padding: 0;
+}
+
+.plan-details li {
+    margin-bottom: 20px;
+}
+
+.exercise-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.exercise-form p {
+    margin: 0;
+    font-weight: bold;
+}
+
+.exercise-form input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px 15px;
+    margin-top: 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
