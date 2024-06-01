@@ -11,7 +11,7 @@ public class Session {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "session_id")
-    private Long sessionId;
+    private Integer sessionId;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
@@ -24,21 +24,22 @@ public class Session {
     @Column(name = "session_date", nullable = false)
     private LocalDate sessionDate;
 
-    public Session(){
+    public Session() {
 
     }
-    public Session(Long sessionId, User users, WorkoutPlan workoutPlan, LocalDate sessionDate) {
+
+    public Session(Integer sessionId, User users, WorkoutPlan workoutPlan, LocalDate sessionDate) {
         this.sessionId = sessionId;
         this.users = users;
         this.workoutPlan = workoutPlan;
         this.sessionDate = sessionDate;
     }
 
-    public Long getSessionId() {
+    public Integer getSessionId() {
         return sessionId;
     }
 
-    public void setSessionId(Long sessionId) {
+    public void setSessionId(Integer sessionId) {
         this.sessionId = sessionId;
     }
 
@@ -76,4 +77,3 @@ public class Session {
                 '}';
     }
 }
-

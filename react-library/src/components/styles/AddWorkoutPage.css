@@ -1,0 +1,36 @@
+.plan-details-container {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.plan-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.plan-details {
+    list-style-type: none;
+    padding: 0;
+}
+
+.plan-details li {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+}
+
+.plan-details li:last-child {
+    border-bottom: none;
+}
+
+.plan-details p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.plan-details p span {
+    font-weight: bold;
+}

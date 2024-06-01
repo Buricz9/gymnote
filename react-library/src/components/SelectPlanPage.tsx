@@ -1,44 +1,53 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './styles/SelectPlanPage.css';
 import Toolbar from './Toolbar';
-import data from '../data/dataDetails.json';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+interface User {
+    userId: number;
+    email: string;
+}
 
 interface TrainingPlan {
-    name: string;
-    plan: string;
-    startDate: string;
-    endDate: string;
+    planId: number;
+    userId: number;
+    planName: string;
 }
 
 const SelectPlanPage: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [plans, setPlans] = useState<TrainingPlan[]>(data);
-    const [selectedPlan, setSelectedPlan] = useState<TrainingPlan[] | null>(null);
+    const [selectedUser, setSelectedUser] = useState<User | null>(null);
+    const [selectedPlans, setSelectedPlans] = useState<TrainingPlan[] | null>(null);
+
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (searchTerm.trim() === '') {
-            setSelectedPlan(null);
-            return;
+    const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const term = e.target.value.toLowerCase();
+        setSearchTerm(term);
+        try {
+            const response = await axios.get<User>(`http://localhost:8080/users/email/${term}`);
+            const user = response.data;
+            setSelectedUser(user || null);
+            if (user) {
+                const plansResponse = await axios.get<TrainingPlan[]>(`http://localhost:8080/api/workout-plans/user/${user.userId}`);
+                setSelectedPlans(plansResponse.data || null);
+            } else {
+                setSelectedPlans(null);
+            }
+        } catch (error) {
+            console.error('Error searching for user or fetching plans:', error);
+            setSelectedUser(null);
+            setSelectedPlans(null);
         }
-
-        const matchedPlans = plans.filter(plan =>
-            plan.name.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-
-        setSelectedPlan(matchedPlans.length > 0 ? matchedPlans : null);
-
-        console.log('Dane pobrane z pliku:', plans); // Dodaj ten console.log
-    }, [searchTerm, plans]);
-
-    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchTerm(e.target.value);
     };
 
-    const startTraining = () => {
-        if (selectedPlan) {
-            navigate('/edycja', { state: { selectedPlans: selectedPlan } });
+    const startTraining = (plan: TrainingPlan) => {
+        if (plan && selectedUser) {
+            console.log('Selected plan:', plan.planId);
+            console.log('Selected user:', plan.planName);
+            console.log('Selected user:', selectedUser.userId);
+            navigate('/add-workout', { state: { planId: plan.planId, planName: plan.planName, userId: selectedUser.userId } });
         }
     };
 
@@ -46,26 +55,23 @@ const SelectPlanPage: React.FC = () => {
         <div className="select-plan-page">
             <Toolbar />
             <div className="search-section">
-                <h2>Szukaj osoby:</h2>
-                <input
-                    type="text"
-                    placeholder="Wpisz nazwę osoby"
-                    value={searchTerm}
-                    onChange={handleSearch}
-                />
+                <h2>Search for a User</h2>
+                <input type="email" value={searchTerm} onChange={handleSearch} />
+                {searchTerm && !selectedUser && <p>User not found.</p>}
+                {!searchTerm && <p>Enter the email address you want to search for.</p>}
+                {selectedUser && <p>Selected user: {selectedUser.email}</p>}
             </div>
-            {selectedPlan ? (
+            {selectedPlans ? (
                 <div>
-                    {selectedPlan.map((plan, index) => (
-                        <div key={index} className="plan-item">
-                            <h2>{plan.name}</h2>
-                            <p>Plan: {plan.plan}</p>
-                            <button onClick={startTraining}>Start training</button>
+                    {selectedPlans.map((plan) => (
+                        <div key={plan.planId} className="plan-item">
+                            <h2>{plan.planName}</h2>
+                            <button onClick={() => startTraining(plan)}>Start training</button>
                         </div>
                     ))}
                 </div>
             ) : (
-                searchTerm.trim() !== '' && <p>Brak danych dla podanej osoby lub więcej niż jedna pasująca osoba</p>
+                searchTerm.trim() !== '' && selectedUser && <p>No plans found for the selected user.</p>
             )}
         </div>
     );

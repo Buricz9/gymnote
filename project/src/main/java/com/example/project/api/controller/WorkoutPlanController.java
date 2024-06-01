@@ -3,9 +3,12 @@ package com.example.project.api.controller;
 import com.example.project.entity.User;
 import com.example.project.entity.WorkoutPlan;
 import com.example.project.entity.PlanDetail;
+import com.example.project.entity.Session;
 import com.example.project.dao.UserRepository;
 import com.example.project.dao.WorkoutPlanRepository;
 import com.example.project.dao.PlanDetailRepository;
+import com.example.project.dao.SessionRepository;
+import com.example.project.api.request.SessionRequest;
 import com.example.project.api.request.WorkoutPlanRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +28,14 @@ public class WorkoutPlanController {
 
     @Autowired
     private PlanDetailRepository planDetailRepository;
+
+    @Autowired
+    private SessionRepository sessionRepository;
+
+    @GetMapping("/user/{userId}")
+    public List<WorkoutPlan> getPlansByUserId(@PathVariable Integer userId) {
+        return workoutPlanRepository.findByUserUserId(userId);
+    }
 
     @PostMapping
     public WorkoutPlan createWorkoutPlan(@RequestBody WorkoutPlanRequest request) {
@@ -47,4 +58,28 @@ public class WorkoutPlanController {
 
         return planDetailRepository.save(planDetail);
     }
+
+    @GetMapping("/{planId}/exercises")
+    public List<PlanDetail> getExercisesForPlan(@PathVariable Integer planId) {
+        WorkoutPlan workoutPlan = workoutPlanRepository.findById(planId)
+                .orElseThrow(() -> new IllegalArgumentException("Workout Plan not found"));
+
+        return planDetailRepository.findByWorkoutPlan(workoutPlan);
+    }
+
+    @PostMapping("/sessions")
+    public Session createTrainingSession(@RequestBody SessionRequest request) {
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        WorkoutPlan workoutPlan = workoutPlanRepository.findById(request.getPlanId())
+                .orElseThrow(() -> new IllegalArgumentException("Workout Plan not found"));
+
+        Session session = new Session();
+        session.setUsers(user);
+        session.setWorkoutPlan(workoutPlan);
+        session.setSessionDate(request.getSessionDate());
+
+        return sessionRepository.save(session);
+    }
+
 }

@@ -2,7 +2,9 @@ package com.example.project.api.controller;
 
 import com.example.project.api.service.UserService;
 import com.example.project.dao.UserRepository;
+import com.example.project.dao.WorkoutPlanRepository;
 import com.example.project.entity.User;
+import com.example.project.entity.WorkoutPlan;
 
 import org.apache.el.stream.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+    // private WorkoutPlanRepository workoutPlanRepository;
 
     @GetMapping("/email/{email}")
     public ResponseEntity<?> getUserByEmail(@PathVariable String email) {
@@ -31,4 +34,9 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    // @GetMapping("/{userId}/plans")
+    // public List<WorkoutPlan> getPlansByUserId(@PathVariable Integer userId) {
+    // return workoutPlanRepository.findByUserUserId(userId);
+    // }
 }

@@ -9,7 +9,7 @@ public class SessionExercise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "session_exercise_id")
-    private Long sessionExerciseId;
+    private Integer sessionExerciseId;
 
     @ManyToOne
     @JoinColumn(name = "session_id", referencedColumnName = "session_id", nullable = false)
@@ -20,7 +20,7 @@ public class SessionExercise {
     private PlanDetail planDetail;
 
     @Column(name = "series", nullable = false)
-    private int series;
+    private Integer series;
 
     @Column(name = "weight", nullable = false)
     private double weight;
@@ -37,11 +37,13 @@ public class SessionExercise {
     @Column(name = "exercise_notes")
     private String exerciseNotes;
 
-    public SessionExercise(){
+    public SessionExercise() {
 
     }
 
-    public SessionExercise(Long sessionExerciseId, Session session, PlanDetail planDetail, int series, double weight, int repetitionsCompleted, String tempoUsed, String restTimeUsed, String exerciseNotes) {
+    public SessionExercise(Integer sessionExerciseId, Session session, PlanDetail planDetail, Integer series,
+            double weight,
+            int repetitionsCompleted, String tempoUsed, String restTimeUsed, String exerciseNotes) {
         this.sessionExerciseId = sessionExerciseId;
         this.session = session;
         this.planDetail = planDetail;
@@ -53,11 +55,11 @@ public class SessionExercise {
         this.exerciseNotes = exerciseNotes;
     }
 
-    public Long getSessionExerciseId() {
+    public Integer getSessionExerciseId() {
         return sessionExerciseId;
     }
 
-    public void setSessionExerciseId(Long sessionExerciseId) {
+    public void setSessionExerciseId(Integer sessionExerciseId) {
         this.sessionExerciseId = sessionExerciseId;
     }
 
@@ -93,11 +95,11 @@ public class SessionExercise {
         this.weight = weight;
     }
 
-    public int getRepetitionsCompleted() {
+    public Integer getRepetitionsCompleted() {
         return repetitionsCompleted;
     }
 
-    public void setRepetitionsCompleted(int repetitionsCompleted) {
+    public void setRepetitionsCompleted(Integer repetitionsCompleted) {
         this.repetitionsCompleted = repetitionsCompleted;
     }
 
