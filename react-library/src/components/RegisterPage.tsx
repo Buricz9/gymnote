@@ -1,25 +1,37 @@
-// RegisterPage.tsx
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import Toolbar from './Toolbar';
+import axios from 'axios';
 import './styles/RegisterPage.css';
 
 const RegisterPage: React.FC = () => {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+    const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [userType, setUserType] = useState('');
+    const [message, setMessage] = useState('');
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // Tutaj dodaj logikę rejestracji użytkownika
-        console.log('Rejestracja użytkownika:');
-        console.log('Imię:', firstName);
-        console.log('Nazwisko:', lastName);
-        console.log('Email:', email);
-        console.log('Hasło:', password);
-        console.log('Typ użytkownika:', userType);
+
+        const user = {
+            userName,
+            email,
+            password,
+            userType
+        };
+
+        try {
+            const response = await axios.post('http://localhost:8080/users/register', user);
+            if (response.status === 200) {
+                setMessage('Rejestracja zakończona sukcesem');
+            }
+        } catch (error: any) {
+            if (error.response) {
+                setMessage(`Rejestracja nie powiodła się: ${error.response.data}`);
+            } else {
+                setMessage('Błąd podczas rejestracji: ' + error.message);
+            }
+        }
     };
 
     return (
@@ -27,23 +39,15 @@ const RegisterPage: React.FC = () => {
             <Toolbar />
             <div className="register-container">
                 <h2>Rejestracja użytkownika</h2>
+                {message && <p>{message}</p>}
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label>Imię</label>
+                        <label>Nazwa użytkownika</label>
                         <input
                             type="text"
-                            placeholder="Wprowadź imię"
-                            value={firstName}
-                            onChange={(e) => setFirstName(e.target.value)}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Nazwisko</label>
-                        <input
-                            type="text"
-                            placeholder="Wprowadź nazwisko"
-                            value={lastName}
-                            onChange={(e) => setLastName(e.target.value)}
+                            placeholder="Wprowadź nazwe użytkownika"
+                            value={userName}
+                            onChange={(e) => setUserName(e.target.value)}
                         />
                     </div>
                     <div className="form-group">
@@ -71,8 +75,9 @@ const RegisterPage: React.FC = () => {
                             onChange={(e) => setUserType(e.target.value)}
                         >
                             <option value="">Wybierz typ użytkownika</option>
-                            <option value="regular">Zwykły użytkownik</option>
-                            <option value="admin">Administrator</option>
+                            <option value="USER">Zwykły użytkownik</option>
+                            <option value="ADMIN">Administrator</option>
+                            <option value="MENAGER">Menager</option>
                         </select>
                     </div>
                     <button type="submit" className="register-btn">Zarejestruj się</button>

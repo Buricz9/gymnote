@@ -31,16 +31,9 @@ public class User implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
-    // @Column(name="first_name")
-    // private String firstName;
-
-    // @Column(name="last_name")
-    // private String lastName;
-
     @Column(name = "user_name", nullable = false)
     private String userName;
 
-    // @Enumerated(EnumType.STRING)
     @Column(name = "user_type", nullable = false)
     private String userType;
 

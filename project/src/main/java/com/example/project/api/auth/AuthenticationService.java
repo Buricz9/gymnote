@@ -1,32 +1,34 @@
+
 package com.example.project.api.auth;
 
+// com.example.project.api.auth.AuthenticationService
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import com.example.project.config.JwtService;
-import com.example.project.entity.User;
 import com.example.project.dao.UserRepository;
-
+import com.example.project.entity.User;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final PasswordEncoder passwordEncoder; // Dodaj deklarację passwordEncoder
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword(), null));
+                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
 
-        User user = userRepository.findByEmail(request.getEmail()).orElseThrow();
+        User user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         String token = jwtService.generateToken(user);
-        return AuthenticationResponse.builder().token(token).build();
+        return AuthenticationResponse.builder().token(token).userType(user.getUserType()).build();
     }
 
     public AuthenticationResponse register(RegisterRequest request) {
@@ -39,6 +41,6 @@ public class AuthenticationService {
         userRepository.save(user);
 
         String token = jwtService.generateToken(user);
-        return AuthenticationResponse.builder().token(token).build();
+        return AuthenticationResponse.builder().token(token).userType(user.getUserType()).build();
     }
 }

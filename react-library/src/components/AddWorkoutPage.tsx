@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import './styles/AddWorkoutPage.css';
+import Toolbar from './Toolbar';
 
 interface PlanDetail {
     detailId: number;
@@ -117,6 +118,7 @@ const AddWorkoutPage: React.FC = () => {
 
     return (
         <div className="plan-details-container">
+            <Toolbar />
             <h2 className="plan-name">Plan Name: {planName}</h2>
             <div className="date-picker-container">
                 <label htmlFor="sessionDate">Select session date: </label>

@@ -8,23 +8,11 @@ const LoginPage: React.FC = () => {
     const [login, setLogin] = useState('');
     const [passwordd, setPasswordd] = useState('');
     const [isLoggedInn, setIsLoggedInn] = useState(false);
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         email: '',
-    //         password: '',
-    //         isLoggedIn: false
-    //     };
-    // }
-
-
 
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // const { email, password } = this.state;
         const email = login;
         const password = passwordd;
-        const isLoggedIn = isLoggedInn;
 
         try {
             const response = await axios.post('http://localhost:8080/api/auth/authenticate', {
@@ -32,23 +20,18 @@ const LoginPage: React.FC = () => {
                 password
             });
 
-
             localStorage.setItem('token', response.data.token);
-
+            localStorage.setItem('userType', response.data.userType);
+            console.log("usettype " + response.data.userType);
             setIsLoggedInn(true);
-            console.log(email, password, isLoggedIn, response.data.token)
         } catch (error) {
             alert('Incorrect email or password.');
         }
     };
 
     if (isLoggedInn) {
-        return (
-            <Navigate to="/create-plan" />
-        )
-    } {
-
-
+        return <Navigate to="/create-plan" />;
+    } else {
         return (
             <div className="login-container">
                 <div className="login-form">
@@ -77,7 +60,6 @@ const LoginPage: React.FC = () => {
                         <button type="submit" className="login-btn">
                             Zaloguj
                         </button>
-
                     </form>
                 </div>
             </div>
