@@ -50,3 +50,22 @@
 .start:hover {
     background-color: darkgray;
 }
+
+.plan-item {
+    background: bisque;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+}
+
+.plans-list {
+    width: 80%;
+    gap: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* .slected-plan {
+    gap: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+} */

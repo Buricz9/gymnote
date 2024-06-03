@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './styles/CreatePlanPage.css';
 import Toolbar from './Toolbar';
 import axios from 'axios';
+import './styles/global.css';
 
 interface User {
     userId: number;
@@ -92,9 +93,10 @@ const CreatePlanPage: React.FC = () => {
     return (
         <div className="create-plan-page">
             <Toolbar />
+            <h1>Create plan</h1>
             <div className="search-section">
                 <h2>Search for a User</h2>
-                <input type="email" value={searchTerm} onChange={handleSearch} />
+                <input className='search-input' type="email" value={searchTerm} onChange={handleSearch} />
                 {searchTerm && !selectedUser && <p>User not found.</p>}
                 {!searchTerm && <p>Enter the email address you want to search for.</p>}
                 {selectedUser && <p>Selected user: {selectedUser.email}</p>}

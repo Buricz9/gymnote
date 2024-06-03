@@ -33,7 +33,7 @@ const AddExercisePage: React.FC = () => {
                         placeholder="Exercise Name"
                         required
                     />
-                    <button type="submit">Add Exercise</button>
+                    <button className='button-add' type="submit">Add Exercise</button>
                 </form>
             </div>
         </div>

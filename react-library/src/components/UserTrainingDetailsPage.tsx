@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Toolbar from './Toolbar';
+import './styles/global.css'
 import './styles/UserTrainingDetailsPage.css';
 
 interface User {
@@ -110,12 +111,10 @@ const UserTrainingDetailsPage: React.FC = () => {
     return (
         <div className="user-training-details-page">
             <Toolbar />
-            <div className="user-info">
-                {selectedUser && <p>Selected user: {selectedUser.email}</p>}
-            </div>
-            <div className="search-section">
+            <h1>Display list of plans</h1>
+            <div >
                 <h2>Search for a User</h2>
-                <input type="email" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+                <input className='search-input' type="email" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                 {searchTerm && !selectedUser && <p>User not found.</p>}
                 {!searchTerm && <p>Enter the email address you want to search for.</p>}
                 {selectedUser && <p>Selected user: {selectedUser.email}</p>}
@@ -123,7 +122,7 @@ const UserTrainingDetailsPage: React.FC = () => {
             <div className="plans-list">
                 <h2>Training Plans</h2>
                 {selectedPlans.map(plan => (
-                    <div key={plan.planId}>
+                    <div key={plan.planId} className='training-plan'>
                         <h3>Nazwa planu: {plan.planName}</h3>
                         {selectedSessions.filter(session => session.workoutPlan.planId === plan.planId).map(session => (
                             <div key={session.sessionId}>

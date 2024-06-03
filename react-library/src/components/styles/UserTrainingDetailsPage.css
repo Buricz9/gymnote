@@ -1,4 +1,8 @@
 /* components/styles/UserTrainingDetailsPage.css */
+h2 {
+    width: 100%;
+    text-align: center;
+}
 
 .user-training-details-page {
     display: flex;
@@ -37,4 +41,25 @@
 
 .exercise p {
     margin: 5px 0;
+}
+
+.training-plan {
+    background: bisque;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+}
+
+.plans-list {
+    gap: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
 }

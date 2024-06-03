@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './styles/SelectPlanPage.css';
+import './styles/global.css';
 import Toolbar from './Toolbar';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -54,15 +55,17 @@ const SelectPlanPage: React.FC = () => {
     return (
         <div className="select-plan-page">
             <Toolbar />
+            <h1>Search plan</h1>
+
             <div className="search-section">
                 <h2>Search for a User</h2>
-                <input type="email" value={searchTerm} onChange={handleSearch} />
+                <input type="email" className='search-input' value={searchTerm} onChange={handleSearch} />
                 {searchTerm && !selectedUser && <p>User not found.</p>}
                 {!searchTerm && <p>Enter the email address you want to search for.</p>}
                 {selectedUser && <p>Selected user: {selectedUser.email}</p>}
             </div>
             {selectedPlans ? (
-                <div>
+                <div className='plans-list'>
                     {selectedPlans.map((plan) => (
                         <div key={plan.planId} className="plan-item">
                             <h2> Plan name: {plan.planName} </h2>
