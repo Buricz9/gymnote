@@ -65,8 +65,8 @@ const SelectPlanPage: React.FC = () => {
                 <div>
                     {selectedPlans.map((plan) => (
                         <div key={plan.planId} className="plan-item">
-                            <h2>{plan.planName}</h2>
-                            <button onClick={() => startTraining(plan)}>Start training</button>
+                            <h2> Plan name: {plan.planName} </h2>
+                            <button className='start' onClick={() => startTraining(plan)}>Start training</button>
                         </div>
                     ))}
                 </div>

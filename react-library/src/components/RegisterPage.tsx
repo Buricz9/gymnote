@@ -35,7 +35,7 @@ const RegisterPage: React.FC = () => {
     };
 
     return (
-        <>
+        <div className="register-plan-page">
             <Toolbar />
             <div className="register-container">
                 <h2>Rejestracja użytkownika</h2>
@@ -83,7 +83,7 @@ const RegisterPage: React.FC = () => {
                     <button type="submit" className="register-btn">Zarejestruj się</button>
                 </form>
             </div>
-        </>
+        </div>
     );
 };
 

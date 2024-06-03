@@ -21,8 +21,8 @@ const LoginPage: React.FC = () => {
             });
 
             localStorage.setItem('token', response.data.token);
-            localStorage.setItem('userType', response.data.userType);
-            console.log("usettype " + response.data.userType);
+            // localStorage.setItem('userType', response.data.userType);
+            // console.log("usettype " + response.data.userType);
             setIsLoggedInn(true);
         } catch (error) {
             alert('Incorrect email or password.');
@@ -30,7 +30,7 @@ const LoginPage: React.FC = () => {
     };
 
     if (isLoggedInn) {
-        return <Navigate to="/create-plan" />;
+        return <Navigate to="/details" />;
     } else {
         return (
             <div className="login-container">

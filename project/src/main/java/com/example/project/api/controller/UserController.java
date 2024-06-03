@@ -1,5 +1,7 @@
 package com.example.project.api.controller;
 
+import com.example.project.api.auth.AuthenticationResponse;
+import com.example.project.api.auth.RegisterRequest;
 import com.example.project.api.service.UserService;
 import com.example.project.config.JwtService;
 import com.example.project.dao.UserRepository;
@@ -24,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
+// import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -59,5 +61,4 @@ public class UserController {
         return ResponseEntity.ok(savedUser);
 
     }
-
 }

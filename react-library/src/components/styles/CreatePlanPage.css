@@ -38,7 +38,7 @@ input[type="number"] {
 button {
   padding: 10px 20px;
   margin-top: 10px;
-  background-color: #4CAF50;
+  background-color: grey;
   color: white;
   border: none;
   border-radius: 4px;
@@ -47,7 +47,7 @@ button {
 }
 
 button:hover {
-  background-color: #45a049;
+  background-color: grey;
 }
 
 .exercise {
@@ -72,13 +72,24 @@ button:hover {
 }
 
 button[type="button"] {
-  background-color: #008CBA;
+  background-color: grey;
 }
 
 button[type="button"]:hover {
-  background-color: #007BB5;
+  background-color: darkgray;
 }
 
 .full-width {
   width: 100%;
+}
+
+button[type="submit"] {
+  margin-left: 5px;
+  background-color: grey;
+}
+
+button[type="submit"]:hover {
+  margin-left: 5px;
+
+  background-color: darkgray;
 }

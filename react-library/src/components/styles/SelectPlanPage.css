@@ -1,7 +1,9 @@
 .select-plan-page {
-    max-width: 600px;
-    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 20px;
+    font-family: Arial, sans-serif;
 }
 
 .search-section {
@@ -36,4 +38,15 @@
 .plan-details ul {
     list-style: disc;
     margin-left: 20px;
+}
+
+.start {
+    /* font-size: 18px; */
+    background-color: grey;
+    /* text-align: center; */
+    /* margin-top: 40px; */
+}
+
+.start:hover {
+    background-color: darkgray;
 }
