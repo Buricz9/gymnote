@@ -4,6 +4,7 @@ import './styles/global.css';
 import Toolbar from './Toolbar';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import SearchUser from './SearchUser';
 
 interface User {
     userId: number;
@@ -17,28 +18,25 @@ interface TrainingPlan {
 }
 
 const SelectPlanPage: React.FC = () => {
-    const [searchTerm, setSearchTerm] = useState('');
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const [selectedPlans, setSelectedPlans] = useState<TrainingPlan[] | null>(null);
-
     const navigate = useNavigate();
 
-    const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const term = e.target.value.toLowerCase();
-        setSearchTerm(term);
+    const fetchPlans = async (userId: number) => {
         try {
-            const response = await axios.get<User>(`http://localhost:8080/users/email/${term}`);
-            const user = response.data;
-            setSelectedUser(user || null);
-            if (user) {
-                const plansResponse = await axios.get<TrainingPlan[]>(`http://localhost:8080/api/workout-plans/user/${user.userId}`);
-                setSelectedPlans(plansResponse.data || null);
-            } else {
-                setSelectedPlans(null);
-            }
+            const plansResponse = await axios.get<TrainingPlan[]>(`http://localhost:8080/api/workout-plans/user/${userId}`);
+            setSelectedPlans(plansResponse.data || null);
         } catch (error) {
-            console.error('Error searching for user or fetching plans:', error);
-            setSelectedUser(null);
+            console.error('Error fetching plans:', error);
+            setSelectedPlans(null);
+        }
+    };
+
+    const handleUserSelected = (user: User | null) => {
+        setSelectedUser(user);
+        if (user) {
+            fetchPlans(user.userId);
+        } else {
             setSelectedPlans(null);
         }
     };
@@ -56,14 +54,7 @@ const SelectPlanPage: React.FC = () => {
         <div className="select-plan-page">
             <Toolbar />
             <h1>Search plan</h1>
-
-            <div className="search-section">
-                <h2>Search for a User</h2>
-                <input type="email" className='search-input' value={searchTerm} onChange={handleSearch} />
-                {searchTerm && !selectedUser && <p>User not found.</p>}
-                {!searchTerm && <p>Enter the email address you want to search for.</p>}
-                {selectedUser && <p>Selected user: {selectedUser.email}</p>}
-            </div>
+            <SearchUser onUserSelected={handleUserSelected} />
             {selectedPlans ? (
                 <div className='plans-list'>
                     {selectedPlans.map((plan) => (
@@ -74,7 +65,7 @@ const SelectPlanPage: React.FC = () => {
                     ))}
                 </div>
             ) : (
-                searchTerm.trim() !== '' && selectedUser && <p>No plans found for the selected user.</p>
+                selectedUser && <p>No plans found for the selected user.</p>
             )}
         </div>
     );

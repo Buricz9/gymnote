@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './styles/CreatePlanPage.css';
 import Toolbar from './Toolbar';
 import axios from 'axios';
+import SearchUser from './SearchUser';
 import './styles/global.css';
 
 interface User {
@@ -10,7 +11,7 @@ interface User {
 }
 
 interface ExerciseDetail {
-    exerciseName: string; // Dodana właściwość exerciseName
+    exerciseName: string;
     name: string;
     sets: number;
     repetitions: number;
@@ -19,21 +20,9 @@ interface ExerciseDetail {
 }
 
 const CreatePlanPage: React.FC = () => {
-    const [searchTerm, setSearchTerm] = useState('');
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const [newPlanName, setNewPlanName] = useState('');
     const [exercises, setExercises] = useState<ExerciseDetail[]>([]);
-
-    const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const term = e.target.value.toLowerCase();
-        setSearchTerm(term);
-        try {
-            const response = await axios.get<User>(`http://localhost:8080/users/email/${term}`);
-            setSelectedUser(response.data || null);
-        } catch (error) {
-            console.error('Error searching for user:', error);
-        }
-    };
 
     const handleExerciseChange = (index: number, field: keyof ExerciseDetail, value: string | number) => {
         const newExercises: ExerciseDetail[] = [...exercises];
@@ -94,13 +83,7 @@ const CreatePlanPage: React.FC = () => {
         <div className="create-plan-page">
             <Toolbar />
             <h1>Create plan</h1>
-            <div className="search-section">
-                <h2>Search for a User</h2>
-                <input className='search-input' type="email" value={searchTerm} onChange={handleSearch} />
-                {searchTerm && !selectedUser && <p>User not found.</p>}
-                {!searchTerm && <p>Enter the email address you want to search for.</p>}
-                {selectedUser && <p>Selected user: {selectedUser.email}</p>}
-            </div>
+            <SearchUser onUserSelected={setSelectedUser} />
             {selectedUser && (
                 <div className="create-plan-section">
                     <h2>Create a New Plan</h2>

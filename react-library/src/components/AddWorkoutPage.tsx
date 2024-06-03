@@ -129,7 +129,7 @@ const AddWorkoutPage: React.FC = () => {
                 {planDetails.map((detail) => (
                     <li key={detail.detailId}>
                         <p>Exercise: {detail.exerciseName} Sets: {detail.sets} Repetitions: {detail.repetitions} Tempo: {detail.tempo} Rest Time: {detail.restTime}</p>
-                        <button onClick={() => handleAddSeries(detail.detailId)}>+</button>
+                        <button className='buttonPlas' onClick={() => handleAddSeries(detail.detailId)}>+</button>
                         {sessionExercises[detail.detailId] && sessionExercises[detail.detailId].map((exercise, index) => (
                             <div key={index} className="exercise-form">
                                 <p>Series: {exercise.series}</p>
@@ -163,13 +163,13 @@ const AddWorkoutPage: React.FC = () => {
                                     value={exercise.exerciseNotes}
                                     onChange={(e) => handleExerciseChange(detail.detailId, index, 'exerciseNotes', e.target.value)}
                                 />
-                                <button onClick={() => handleRemoveSeries(detail.detailId, exercise.series)}>-</button>
+                                <button className='buttonMin' onClick={() => handleRemoveSeries(detail.detailId, exercise.series)}>-</button>
                             </div>
                         ))}
                     </li>
                 ))}
             </ul>
-            <button onClick={handleSubmit}>Submit Training Session</button>
+            <button className='buttonSub' onClick={handleSubmit}>Submit Training Session</button>
         </div>
     );
 };

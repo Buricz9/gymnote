@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Toolbar from './Toolbar';
-import './styles/global.css'
+import SearchUser from './SearchUser';
+import './styles/global.css';
 import './styles/UserTrainingDetailsPage.css';
 
 interface User {
@@ -38,34 +39,16 @@ const UserTrainingDetailsPage: React.FC = () => {
     const [selectedPlans, setSelectedPlans] = useState<PlanDetail[]>([]);
     const [selectedSessions, setSelectedSessions] = useState<Session[]>([]);
     const [selectedSessionExercises, setSelectedSessionExercises] = useState<SessionExercise[]>([]);
-    const [searchTerm, setSearchTerm] = useState<string>('');
 
     useEffect(() => {
-        if (searchTerm) {
-            fetchUser();
-        }
-    }, [searchTerm]);
-
-    const fetchUser = async () => {
-        try {
-            const response = await axios.get<User>(`http://localhost:8080/users/email/${searchTerm}`);
-            const user = response.data;
-            setSelectedUser(user);
-            if (user) {
-                fetchPlans(user.userId);
-            } else {
-                setSelectedPlans([]);
-                setSelectedSessions([]);
-                setSelectedSessionExercises([]);
-            }
-        } catch (error) {
-            console.error('Error fetching user:', error);
-            setSelectedUser(null);
+        if (selectedUser) {
+            fetchPlans(selectedUser.userId);
+        } else {
             setSelectedPlans([]);
             setSelectedSessions([]);
             setSelectedSessionExercises([]);
         }
-    };
+    }, [selectedUser]);
 
     const fetchPlans = async (userId: number) => {
         try {
@@ -112,13 +95,7 @@ const UserTrainingDetailsPage: React.FC = () => {
         <div className="user-training-details-page">
             <Toolbar />
             <h1>Display list of plans</h1>
-            <div >
-                <h2>Search for a User</h2>
-                <input className='search-input' type="email" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-                {searchTerm && !selectedUser && <p>User not found.</p>}
-                {!searchTerm && <p>Enter the email address you want to search for.</p>}
-                {selectedUser && <p>Selected user: {selectedUser.email}</p>}
-            </div>
+            <SearchUser onUserSelected={setSelectedUser} />
             <div className="plans-list">
                 <h2>Training Plans</h2>
                 {selectedPlans.map(plan => (

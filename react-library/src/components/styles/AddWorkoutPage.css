@@ -1,14 +1,20 @@
 .plan-details-container {
-    margin-top: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    margin: 20px;
+    font-family: Arial, sans-serif;
 }
 
 .plan-name {
     font-size: 24px;
     font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.date-picker-container {
     margin-bottom: 20px;
+}
+
+.date-picker-container label {
+    font-weight: bold;
 }
 
 .plan-details {
@@ -18,117 +24,115 @@
 
 .plan-details li {
     margin-bottom: 20px;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 20px;
-}
-
-.plan-details li:last-child {
-    border-bottom: none;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
 .plan-details p {
     margin: 5px 0;
+}
+
+.exercise-form {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.exercise-form input {
+    margin: 5px 0;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    background-color: grey;
+}
+
+button:hover {
+    background-color: darkgrey;
+}
+
+button:focus {
+    outline: none;
+}
+
+button:disabled {
+    background-color: lightgrey;
+    cursor: not-allowed;
+}
+
+button+button {
+    margin-left: 10px;
+}
+
+.exercise-form button {
+    align-self: flex-start;
+}
+
+.buttonSub {
+    background-color: gray;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
     font-size: 16px;
-}
-
-.plan-details p span {
-    font-weight: bold;
-}
-
-.plan-details-container {
-    margin: 20px;
-}
-
-.date-picker-container {
-    margin-bottom: 20px;
-}
-
-.plan-details {
-    list-style: none;
-    padding: 0;
-}
-
-.plan-details li {
-    margin-bottom: 20px;
-}
-
-.exercise-form {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.exercise-form p {
-    margin: 0;
-    font-weight: bold;
-}
-
-.exercise-form input {
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-button {
-    padding: 10px 15px;
-    margin-top: 10px;
-    border: none;
-    background-color: #007bff;
-    color: white;
+    margin: 4px 2px;
     cursor: pointer;
-    border-radius: 4px;
 }
 
-button:hover {
-    background-color: #0056b3;
-}
-
-.plan-details-container {
-    margin: 20px;
-}
-
-.date-picker-container {
-    margin-bottom: 20px;
-}
-
-.plan-details {
-    list-style: none;
-    padding: 0;
-}
-
-.plan-details li {
-    margin-bottom: 20px;
-}
-
-.exercise-form {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.exercise-form p {
-    margin: 0;
-    font-weight: bold;
-}
-
-.exercise-form input {
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-button {
-    padding: 10px 15px;
-    margin-top: 10px;
-    border: none;
-    background-color: #007bff;
+.buttonSub:hover {
+    background-color: darkgray;
     color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
     cursor: pointer;
-    border-radius: 4px;
 }
 
-button:hover {
-    background-color: #0056b3;
+.buttonMin {
+    background-color: gray;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.buttonMin:hover {
+    background-color: darkgray;
+}
+
+.buttonPlas {
+    background-color: gray;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.buttonPlas:hover {
+    background-color: darkgray;
 }
