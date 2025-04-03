@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  mariadb:
+    image: mariadb:11
+    container_name: gymnote-mariadb
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: kubaburek
+      MARIADB_DATABASE: projekt
+      MARIADB_USER: root
+      MARIADB_PASSWORD: kubaburek
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+volumes:
+  mariadb_data:
