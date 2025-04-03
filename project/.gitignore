@@ -34,3 +34,29 @@ build/
 
 # properties
 src/main/resources/application.properties
+
+# IntelliJ IDEA data source configs
+.idea/dataSources/
+.idea/dataSources.local.xml
+.idea/**/storage_v2/
+
+# IntelliJ schemas & metadata
+*.meta
+*.db
+*.log
+
+# Liquibase temporary files (just in case)
+liquibase*.log
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Node.js
+node_modules/
+
+# Optional: frontend build outputs
+/build
+/dist
+*.map
+
