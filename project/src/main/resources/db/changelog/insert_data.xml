@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.24.xsd">
+
+    <!-- USERS - Wstawi tylko jeśli tabela istnieje i nie ma tych użytkowników -->
+    <changeSet id="insert-users" author="me" runOnChange="true">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="users"/>
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM users WHERE email = 'user@example.com'
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="users">
+            <column name="email" value="user@example.com"/>
+            <column name="password" value="password123"/>
+            <column name="user_name" value="John Doe"/>
+            <column name="user_type" value="USER"/>
+        </insert>
+        <insert tableName="users">
+            <column name="email" value="admin@example.com"/>
+            <column name="password" value="adminpass"/>
+            <column name="user_name" value="Admin User"/>
+            <column name="user_type" value="ADMIN"/>
+        </insert>
+    </changeSet>
+
+    <!-- WORKOUT PLAN - Wymaga istnienia tabeli i użytkownika o ID=1 -->
+    <changeSet id="insert-workout-plan" author="me" runOnChange="true">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="workout_plan"/>
+            <tableExists tableName="users"/>
+            <sqlCheck expectedResult="1">
+                SELECT COUNT(*) FROM users WHERE user_id = 1
+            </sqlCheck>
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM workout_plan WHERE plan_name = 'Push-Pull-Legs'
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="workout_plan">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="plan_name" value="Push-Pull-Legs"/>
+        </insert>
+    </changeSet>
+
+    <!-- EXERCISES - Wstawi tylko jeśli tabela istnieje -->
+    <changeSet id="insert-exercises" author="me" runOnChange="true">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="exercise"/>
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM exercise WHERE exercise_name = 'Bench Press'
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="exercise">
+            <column name="exercise_name" value="Bench Press"/>
+        </insert>
+        <insert tableName="exercise">
+            <column name="exercise_name" value="Deadlift"/>
+        </insert>
+    </changeSet>
+
+    <!-- PLAN DETAIL - Wymaga istnienia powiązanych tabel -->
+    <changeSet id="insert-plan-detail" author="me" runOnChange="true">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="plan_detail"/>
+            <sqlCheck expectedResult="1">
+                SELECT COUNT(*) FROM workout_plan WHERE plan_id = 1
+            </sqlCheck>
+            <sqlCheck expectedResult="1">
+                SELECT COUNT(*) FROM exercise WHERE exercise_id = 1
+            </sqlCheck>
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM plan_detail WHERE plan_id = 1 AND exercise_id = 1
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="plan_detail">
+            <column name="plan_id" valueNumeric="1"/>
+            <column name="exercise_id" valueNumeric="1"/>
+            <column name="sets" valueNumeric="4"/>
+            <column name="repetitions" valueNumeric="10"/>
+            <column name="tempo" value="2-0-1"/>
+            <column name="rest_time" value="60s"/>
+        </insert>
+    </changeSet>
+
+    <!-- SESSION - Wymaga istnienia powiązanych tabel -->
+    <changeSet id="insert-session" author="me" runOnChange="true">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="session"/>
+            <sqlCheck expectedResult="1">
+                SELECT COUNT(*) FROM users WHERE user_id = 1
+            </sqlCheck>
+            <sqlCheck expectedResult="1">
+                SELECT COUNT(*) FROM workout_plan WHERE plan_id = 1
+            </sqlCheck>
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM session WHERE session_date = '2025-04-01'
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="session">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="plan_id" valueNumeric="1"/>
+            <column name="session_date" valueDate="2025-04-01"/>
+        </insert>
+    </changeSet>
+
+    <!-- SESSION EXERCISE - Ostatni krok -->
+    <changeSet id="insert-session-exercise" author="me" runOnChange="true">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="session_exercise"/>
+            <sqlCheck expectedResult="1">
+                SELECT COUNT(*) FROM session WHERE session_id = 1
+            </sqlCheck>
+            <sqlCheck expectedResult="1">
+                SELECT COUNT(*) FROM plan_detail WHERE detail_id = 1
+            </sqlCheck>
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM session_exercise WHERE session_id = 1 AND detail_id = 1
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="session_exercise">
+            <column name="session_id" valueNumeric="1"/>
+            <column name="detail_id" valueNumeric="1"/>
+            <column name="series" valueNumeric="1"/>
+            <column name="weight" valueNumeric="80.0"/>
+            <column name="repetitions_completed" valueNumeric="10"/>
+            <column name="tempo_used" value="2-0-1"/>
+            <column name="rest_time_used" value="60s"/>
+            <column name="exercise_notes" value="Felt strong"/>
+        </insert>
+    </changeSet>
+
+
+
+</databaseChangeLog>

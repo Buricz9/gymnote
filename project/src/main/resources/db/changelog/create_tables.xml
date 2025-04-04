@@ -3,12 +3,16 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-                        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+            https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.24.xsd">
 
-    <changeSet id="1" author="chatgpt">
+    <!-- USERS -->
+    <changeSet id="1" author="me">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="users"/></not>
+        </preConditions>
         <createTable tableName="users">
             <column name="user_id" type="INT" autoIncrement="true">
-                <constraints primaryKey="true"/>
+                <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="email" type="VARCHAR(255)">
                 <constraints nullable="false" unique="true"/>
@@ -25,8 +29,12 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="2" author="chatgpt">
-        <createTable tableName="training_plans">
+    <!-- WORKOUT PLAN -->
+    <changeSet id="2" author="me">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="workout_plan"/></not>
+        </preConditions>
+        <createTable tableName="workout_plan">
             <column name="plan_id" type="INT" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
@@ -37,18 +45,19 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-    </changeSet>
-
-    <changeSet id="3" author="chatgpt">
-        <addForeignKeyConstraint baseTableName="training_plans"
+        <addForeignKeyConstraint baseTableName="workout_plan"
                                  baseColumnNames="user_id"
                                  referencedTableName="users"
                                  referencedColumnNames="user_id"
-                                 constraintName="fk_training_plans_user"/>
+                                 constraintName="fk_plan_user"/>
     </changeSet>
 
-    <changeSet id="4" author="chatgpt">
-        <createTable tableName="exercises_library">
+    <!-- EXERCISE -->
+    <changeSet id="3" author="me">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="exercise"/></not>
+        </preConditions>
+        <createTable tableName="exercise">
             <column name="exercise_id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
@@ -58,38 +67,44 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="5" author="chatgpt">
-        <createTable tableName="plan_details">
+    <!-- PLAN DETAIL -->
+    <changeSet id="4" author="me">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="plan_detail"/></not>
+        </preConditions>
+        <createTable tableName="plan_detail">
             <column name="detail_id" type="INT" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
             <column name="plan_id" type="INT">
                 <constraints nullable="false"/>
             </column>
-            <column name="exercise_name" type="VARCHAR(255)">
+            <column name="exercise_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="sets" type="INT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="repetitions" type="INT">
-                <constraints nullable="false"/>
-            </column>
+            <column name="sets" type="INT"/>
+            <column name="repetitions" type="INT"/>
             <column name="tempo" type="VARCHAR(255)"/>
             <column name="rest_time" type="VARCHAR(255)"/>
         </createTable>
-    </changeSet>
-
-    <changeSet id="6" author="chatgpt">
-        <addForeignKeyConstraint baseTableName="plan_details"
+        <addForeignKeyConstraint baseTableName="plan_detail"
                                  baseColumnNames="plan_id"
-                                 referencedTableName="training_plans"
+                                 referencedTableName="workout_plan"
                                  referencedColumnNames="plan_id"
-                                 constraintName="fk_plan_details_plan"/>
+                                 constraintName="fk_detail_plan"/>
+        <addForeignKeyConstraint baseTableName="plan_detail"
+                                 baseColumnNames="exercise_id"
+                                 referencedTableName="exercise"
+                                 referencedColumnNames="exercise_id"
+                                 constraintName="fk_detail_exercise"/>
     </changeSet>
 
-    <changeSet id="7" author="chatgpt">
-        <createTable tableName="training_sessions">
+    <!-- SESSION -->
+    <changeSet id="5" author="me">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="session"/></not>
+        </preConditions>
+        <createTable tableName="session">
             <column name="session_id" type="INT" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
@@ -103,24 +118,24 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-    </changeSet>
-
-    <changeSet id="8" author="chatgpt">
-        <addForeignKeyConstraint baseTableName="training_sessions"
+        <addForeignKeyConstraint baseTableName="session"
                                  baseColumnNames="user_id"
                                  referencedTableName="users"
                                  referencedColumnNames="user_id"
-                                 constraintName="fk_sessions_user"/>
-
-        <addForeignKeyConstraint baseTableName="training_sessions"
+                                 constraintName="fk_session_user"/>
+        <addForeignKeyConstraint baseTableName="session"
                                  baseColumnNames="plan_id"
-                                 referencedTableName="training_plans"
+                                 referencedTableName="workout_plan"
                                  referencedColumnNames="plan_id"
-                                 constraintName="fk_sessions_plan"/>
+                                 constraintName="fk_session_plan"/>
     </changeSet>
 
-    <changeSet id="9" author="chatgpt">
-        <createTable tableName="session_exercises">
+    <!-- SESSION EXERCISE -->
+    <changeSet id="6" author="me">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="session_exercise"/></not>
+        </preConditions>
+        <createTable tableName="session_exercise">
             <column name="session_exercise_id" type="INT" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
@@ -130,33 +145,23 @@
             <column name="detail_id" type="INT">
                 <constraints nullable="false"/>
             </column>
-            <column name="series" type="INT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="weight" type="DOUBLE">
-                <constraints nullable="false"/>
-            </column>
-            <column name="repetitions_completed" type="INT">
-                <constraints nullable="false"/>
-            </column>
+            <column name="series" type="INT"/>
+            <column name="weight" type="DOUBLE"/>
+            <column name="repetitions_completed" type="INT"/>
             <column name="tempo_used" type="VARCHAR(255)"/>
             <column name="rest_time_used" type="VARCHAR(255)"/>
             <column name="exercise_notes" type="VARCHAR(255)"/>
         </createTable>
-    </changeSet>
-
-    <changeSet id="10" author="chatgpt">
-        <addForeignKeyConstraint baseTableName="session_exercises"
+        <addForeignKeyConstraint baseTableName="session_exercise"
                                  baseColumnNames="session_id"
-                                 referencedTableName="training_sessions"
+                                 referencedTableName="session"
                                  referencedColumnNames="session_id"
-                                 constraintName="fk_session_exercises_session"/>
-
-        <addForeignKeyConstraint baseTableName="session_exercises"
+                                 constraintName="fk_se_session"/>
+        <addForeignKeyConstraint baseTableName="session_exercise"
                                  baseColumnNames="detail_id"
-                                 referencedTableName="plan_details"
+                                 referencedTableName="plan_detail"
                                  referencedColumnNames="detail_id"
-                                 constraintName="fk_session_exercises_detail"/>
+                                 constraintName="fk_se_detail"/>
     </changeSet>
 
 </databaseChangeLog>

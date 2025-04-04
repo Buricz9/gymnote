@@ -10,8 +10,9 @@ services:
     environment:
       MARIADB_ROOT_PASSWORD: kubaburek
       MARIADB_DATABASE: projekt
-      MARIADB_USER: root
-      MARIADB_PASSWORD: kubaburek
+      MARIADB_USER: appuser
+      MARIADB_PASSWORD: apppass
+      TZ: Europe/Warsaw
     volumes:
       - mariadb_data:/var/lib/mysql
 

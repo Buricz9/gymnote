@@ -1,22 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.2.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>com.example</groupId>
 	<artifactId>project</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>project</name>
 	<description>Demo project for Spring Boot</description>
+
 	<properties>
 		<java.version>21</java.version>
 	</properties>
+
 	<dependencies>
+		<!-- Dokładnie tak, jak było u Ciebie -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -41,6 +49,7 @@
 		<dependency>
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-core</artifactId>
+			<version>4.24.0</version>
 		</dependency>
 
 		<dependency>
@@ -57,36 +66,40 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-    	<dependency>
-      		<groupId>org.mariadb.jdbc</groupId>
-      		<artifactId>mariadb-java-client</artifactId>
-      		<!-- <version>3.3.3</version> -->
-    	</dependency>
+
+		<dependency>
+			<groupId>org.mariadb.jdbc</groupId>
+			<artifactId>mariadb-java-client</artifactId>
+			<!-- <version>3.3.3</version> -->
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-      		<artifactId>spring-boot-starter-thymeleaf</artifactId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 		</dependency>
 
-
 		<!-- addd -->
-
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -107,17 +120,30 @@
 			<artifactId>jjwt-jackson</artifactId>
 			<version>0.11.5</version>
 		</dependency>
-
-
 	</dependencies>
-
 
 	<build>
 		<plugins>
+			<!-- Pozostawiam Spring Boot plugin nietknięty -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+			<!-- Dodajemy tylko liquibase-maven-plugin, by móc ręcznie robić migracje -->
+			<plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<version>4.24.0</version>
+				<configuration>
+					<changeLogFile>src/main/resources/db/changelog/changelog-master.xml</changeLogFile>
+					<driver>org.mariadb.jdbc.Driver</driver>
+					<url>jdbc:mariadb://localhost:3306/projekt</url>
+					<username>root</username>
+					<password>kubaburek</password>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 
